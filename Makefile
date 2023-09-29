@@ -20,6 +20,7 @@ container-lint:
 refactor: format lint
 
 deploy:
-	#deploy goes here
+	#extract, transform, load, query
+	python -m main --extract --transformload --query
 		
 all: install lint test format deploy
