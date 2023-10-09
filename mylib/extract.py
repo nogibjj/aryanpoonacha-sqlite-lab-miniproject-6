@@ -12,5 +12,3 @@ def extract(url="https://gist.githubusercontent.com/noamross/e5d3e859aa0c794be10
         with open(file_path, 'wb') as f:
             f.write(r.content)
     return file_path
-
-

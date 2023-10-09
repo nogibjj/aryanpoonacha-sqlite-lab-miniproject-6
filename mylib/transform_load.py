@@ -45,3 +45,36 @@ def load(dataset="tables/cars.csv"):
     conn.close()
     return "CarsDB.db"
 
+def load2(dataset="tables/cars2.csv", db_name="Cars2DB.db"):
+    """Transforms and Loads data from cars2.csv into the local SQLite3 database"""
+
+    # Print the full working directory and path
+    print(os.getcwd())
+    payload = csv.reader(open(dataset, newline=''), delimiter=',')
+    next(payload)  # Skip the header row
+
+    # Hardcoded column names based on the structure of cars2.csv
+    columns = [
+        "Make", "Model", "Type", "Origin", "DriveTrain", "MSRP", "Invoice",
+        "EngineSize", "Cylinders", "Horsepower", "MPG_City", "MPG_Highway", "Weight",
+        "Wheelbase", "Length"
+    ]
+
+    conn = sqlite3.connect(db_name)
+    c = conn.cursor()
+    c.execute(f"DROP TABLE IF EXISTS {db_name[:-3]}")
+    
+    # Create the table with hardcoded column names
+    c.execute(f"""
+    CREATE TABLE {db_name[:-3]} (
+        {', '.join([f'{column} TEXT' for column in columns])}
+    )
+    """)
+    
+    # Insert data
+    insert_sql = f"INSERT INTO {db_name[:-3]} ({', '.join(columns)}) VALUES ({', '.join(['?'] * len(columns))})"
+    c.executemany(insert_sql, payload)
+    
+    conn.commit()
+    conn.close()
+    return db_name
