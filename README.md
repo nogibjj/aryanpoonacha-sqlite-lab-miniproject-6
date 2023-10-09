@@ -9,4 +9,4 @@ Transform_load.py: We then load both csvs into MySQL databases.
 
 query.py: We then compare the average Horsepower of cars in the second database with the top 5 cars with the highest horsepower in the first database with a complex query.
 
-Main.py allows these scripts to be called with command line arguments and runs them automatically in conjunction with testing and CI/CD in the .yaml and Makefiles.
+Main.py allows these scripts to be called with command line arguments and runs them automatically in conjunction with testing and CI/CD in the .yaml and Makefiles for automated integration + testing.
